@@ -20,32 +20,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Shelter Name"
-            android:textSize="18sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="Address" />
 
         <TextView
             android:id="@+id/textCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="City" />
 
         <TextView
             android:id="@+id/textBedsAvailable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="Beds Available" />
 
         <Button
             android:id="@+id/buttonMoreInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="More Info" />
+            android:text="More Info"
+            android:layout_gravity="right"
+            />
+
     </LinearLayout>
 
 
