@@ -6,11 +6,14 @@
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
+    import android.widget.ImageView;
     import android.widget.TextView;
 
     import androidx.annotation.NonNull;
     import androidx.fragment.app.Fragment;
     import androidx.lifecycle.ViewModelProvider;
+    import androidx.navigation.NavController;
+    import androidx.navigation.Navigation;
     import androidx.recyclerview.widget.LinearLayoutManager;
     import androidx.recyclerview.widget.RecyclerView;
     import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -55,6 +58,7 @@
         private SwipeRefreshLayout swipeRefreshLayout;
 
 
+
         // variable for our bar chart
         BarChart barChart;
         // variable for our bar data.
@@ -83,15 +87,6 @@
             //Make Shelter List and call API
             shelters = new ArrayList<>();
             getShelters();
-            shelterAdapter = new ShelterAdapter(shelters, new ShelterAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    // Handle item click (e.g., show more info about the shelter)
-                    Shelter shelter = shelters.get(position);
-                    // Implement the action to show more info about the shelter.
-                }
-            });
-            recyclerView.setAdapter(shelterAdapter);
 
             // initializing variable for bar chart.
             barChart = root.findViewById(R.id.idBarChart);
@@ -142,6 +137,7 @@
             // Initialize SwipeRefreshLayout
             swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
             swipeRefreshLayout.setOnRefreshListener(() -> refreshFragment());
+
 
 
             return root;
@@ -202,7 +198,14 @@
                         shelterAdapter = new ShelterAdapter(shelters, new ShelterAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {
-                                Log.d("Home Fragment", String.valueOf(position));
+                                Shelter selectedShelter = shelters.get(position);
+
+                                Log.d("Home Fragment", String.valueOf(selectedShelter.getLocationAddress()));
+                                // Create a bundle to pass data to the ShelterDetail fragment if needed
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("Shelter",selectedShelter);
+                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
+                                navController.navigate(R.id.action_nav_home_to_nav_shelterDetail,bundle);
                             }
                         });
                         recyclerView.setAdapter(shelterAdapter);
@@ -339,6 +342,7 @@
 
             return legendEntries.toArray(new LegendEntry[]{legendEntries.get(0),legendEntries.get(1),legendEntries.get(2),legendEntries.get(3)});
         }
+
         // Method to refresh the current fragment
         public void refreshFragment() {
             // Detach the fragment

@@ -10,4 +10,27 @@
     <string name="menu_home">Home</string>
     <string name="menu_Shelter">Shelters</string>
     <string name="menu_logout">Logout</string>
+
+    <string name="Location_ID">ID</string>
+    <string name="Location_Name">Location Name</string>
+    <string name="Location_Address">Address</string>
+
+    <string name="LocationPostalCode">Postal Code</string>
+    <string name="LocationCity">City</string>
+    <string name="ShelterGroup">Shelter Group</string>
+    <string name="OrganizationName">Organization</string>
+    <string name="ProgramName">Program Name</string>
+    <string name="Sector">Sector</string>
+    <string name="ProgramModel">Program Model</string>
+    <string name="ProgramArea">Program Area</string>
+    <string name="CapacityType">Capacity Type</string>
+
+    <string name="Capacity_Actual_Bed">Capacity Actual Bed</string>
+    <string name="Capacity_Funding_Bed">Capacity Funding Bed</string>
+    <string name="Capacity_Occupied_Bed">Capacity Occupied Bed</string>
+    <string name="Capacity_Unoccupied_Bed">Capacity Unoccupied Bed</string>
+    <string name="Capacity_Unavailable_Bed">Capacity Unavailable Bed</string>
+    <string name="Label1">Organizer &amp; Program</string>
+
+
 </resources>

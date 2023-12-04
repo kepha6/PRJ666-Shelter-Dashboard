@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.shelterDetail.ShelterDetail"
+        android:id="@+id/ShelterDetailView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/LocationID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/Location_ID" />
+
+            <TextView
+                android:id="@+id/LocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="@string/Location_Name"/>
+            <TextView
+                android:id="@+id/addressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Location_Address" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/border"
+                android:padding="10dip"
+                >
+
+                <TextView
+                    android:id="@+id/ShelterLocationAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/black"
+                    android:text="@string/Location_Address" />
+
+                <TextView
+                    android:id="@+id/LocationCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/LocationCity"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="2dp"/>
+
+                <TextView
+                    android:id="@+id/LocationPostalCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/black"
+                    android:text="@string/LocationPostalCode" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/OrganizationNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Label1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="10dip">
+
+                <TextView
+                    android:id="@+id/OrganizationName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/OrganizationName"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/ShelterGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/ShelterGroup" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ProgramNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Program Description"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="10dip">
+
+                <TextView
+                    android:id="@+id/ProgramName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ProgramArea"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/ShelterDetailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shelter Details"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+
+            <LinearLayout
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:textSize="5pt"
+                        android:id="@+id/Sector_Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="For:"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Sector"
+                        />
+
+
+                    <TextView
+                        android:textSize="5pt"
+                        android:id="@+id/ProgramModel_Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shelter Type"
+                        android:layout_marginLeft="15dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/ProgramModel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ProgramModel"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:textSize="5pt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bed Type"/>
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/CapacityType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/CapacityType"
+                        android:layout_marginLeft="1dp"
+
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/Bar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:text="Current Capacity | Total Capacity"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center">
+                <TextView
+                    android:textColor="@color/black"
+
+                    android:id="@+id/Capacity_Actual_Bed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/Capacity_Funding_Bed_Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="300dp"
+                    android:text="000"/>
+
+            </LinearLayout>
+
+
+            <ProgressBar
+                android:id="@+id/Capacity_Funding_Bed"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/teal_200"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                />
+
+            <TextView
+                android:id="@+id/Capacity_Occupied_Bed_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:text="Unoccupied"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/Capacity_Unoccupied_Bed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/Capacity_Funding_Bed_Label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="320dp"
+                    />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/Capacity_Occupied_Bed"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/red"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                />
+
+            <TextView
+                android:id="@+id/Capacity_Unavailable_Bed_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Unavailable" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/Capacity_Unavailable_Bed_Label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/Capacity_Funding_Bed_Label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="320dp"
+                    />
+
+            </LinearLayout>
+            <ProgressBar
+                android:id="@+id/Capacity_Unavailable_Bed"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Capacity_Unavailable_Bed"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:progressTint="@color/blue"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="20dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="Update"/>
+                <Button
+                    android:id="@+id/DeleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>

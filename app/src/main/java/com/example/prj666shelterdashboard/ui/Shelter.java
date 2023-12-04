@@ -1,6 +1,13 @@
 package com.example.prj666shelterdashboard.ui;
 
-public class Shelter {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class Shelter implements Parcelable {
     private int _id;
     private int locationId;
     private int shelterId;
@@ -69,6 +76,42 @@ public class Shelter {
         this.capacityType = capacityType;
     }
 
+
+    protected Shelter(Parcel in) {
+        _id = in.readInt();
+        locationId = in.readInt();
+        shelterId = in.readInt();
+        programId = in.readInt();
+        organizationId = in.readInt();
+        organizationName = in.readString();
+        locationName = in.readString();
+        locationAddress = in.readString();
+        locationPostalCode = in.readString();
+        locationCity = in.readString();
+        sector = in.readString();
+        programName = in.readString();
+        overnightServiceType = in.readString();
+        programArea = in.readString();
+        serviceUserCount = in.readInt();
+        capacityFundingRoom = in.readInt();
+        capacityActualRoom = in.readInt();
+        occupiedRooms = in.readInt();
+        unoccupiedRooms = in.readInt();
+        unavailableRooms = in.readInt();
+        capacityType = in.readString();
+    }
+
+    public static final Creator<Shelter> CREATOR = new Creator<Shelter>() {
+        @Override
+        public Shelter createFromParcel(Parcel in) {
+            return new Shelter(in);
+        }
+
+        @Override
+        public Shelter[] newArray(int size) {
+            return new Shelter[size];
+        }
+    };
 
     // Getters and Setters
     public int get_id() {
@@ -219,5 +262,35 @@ public class Shelter {
 
     public void setCapacityType(String capacityType) {
         this.capacityType = capacityType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(_id);
+        dest.writeInt(locationId);
+        dest.writeInt(shelterId);
+        dest.writeInt(programId);
+        dest.writeInt(organizationId);
+        dest.writeString(organizationName);
+        dest.writeString(locationName);
+        dest.writeString(locationAddress);
+        dest.writeString(locationPostalCode);
+        dest.writeString(locationCity);
+        dest.writeString(sector);
+        dest.writeString(programName);
+        dest.writeString(overnightServiceType);
+        dest.writeString(programArea);
+        dest.writeInt(serviceUserCount);
+        dest.writeInt(capacityFundingRoom);
+        dest.writeInt(capacityActualRoom);
+        dest.writeInt(occupiedRooms);
+        dest.writeInt(unoccupiedRooms);
+        dest.writeInt(unavailableRooms);
+        dest.writeString(capacityType);
     }
 }

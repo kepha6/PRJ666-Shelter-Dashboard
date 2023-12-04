@@ -1,5 +1,7 @@
 package com.example.prj666shelterdashboard.ui.gallery;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,10 +10,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.NavHostController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentKt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prj666shelterdashboard.MainActivity;
 import com.example.prj666shelterdashboard.R;
 import com.example.prj666shelterdashboard.RetrofitClient;
 import com.example.prj666shelterdashboard.databinding.FragmentGalleryBinding;
@@ -24,12 +34,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment  {
 
     private FragmentGalleryBinding binding;
     private RecyclerView recyclerView;
     private ShelterListAdapter shelterAdapter;
     private List<Shelter> shelters;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +63,7 @@ public class GalleryFragment extends Fragment {
 
     private void getShelters() {
         // Make the asynchronous API call
-        Call<List<Shelter>> call = RetrofitClient.getInstance().getMyApi().getShelters(10);
+        Call<List<Shelter>> call = RetrofitClient.getInstance().getMyApi().getShelters(25);
         call.enqueue(new Callback<List<Shelter>>() {
             @Override
             public void onResponse(Call<List<Shelter>> call, Response<List<Shelter>> response) {
@@ -63,8 +74,11 @@ public class GalleryFragment extends Fragment {
                         @Override
                         public void onItemClick(int position) {
                             Shelter selectedShelter = shelters.get(position);
-                            Log.d("Shelter Fragmentssss", String.valueOf(position));
-
+                            // Create a bundle to pass data to the ShelterDetail fragment if needed
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("Shelter",selectedShelter);
+                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
+                            navController.navigate(R.id.action_nav_shelter_to_nav_shelterDetail,bundle);
                         }
                     });
                     recyclerView.setAdapter(shelterAdapter);
