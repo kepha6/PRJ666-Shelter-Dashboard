@@ -42,6 +42,17 @@
         android:id="@+id/nav_shelterDetail"
         android:name="com.example.prj666shelterdashboard.ui.shelterDetail.ShelterDetail"
         android:label="Shelter Details"
-        tools:layout="@layout/fragment_shelter_detail" />
+        tools:layout="@layout/fragment_shelter_detail" >
+        <action
+            android:id="@+id/action_nav_shelterDetail_to_nav_editDetail"
+            app:destination="@id/nav_editDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_editDetail"
+        android:name="com.example.prj666shelterdashboard.ui.shelterDetail.EditShelterDetails"
+        android:label="Edit Shelter Details"
+        tools:layout="@layout/fragment_edit_shelter_details"
+        />
 
 </navigation>

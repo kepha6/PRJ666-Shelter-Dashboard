@@ -31,6 +31,7 @@
     import com.github.mikephil.charting.data.BarData;
     import com.github.mikephil.charting.data.BarDataSet;
     import com.github.mikephil.charting.data.BarEntry;
+    import com.google.gson.JsonObject;
 
     import org.json.JSONArray;
     import org.json.JSONException;
@@ -195,6 +196,7 @@
                     if (response.isSuccessful()) {
                         Log.d("Home Fragment", "Successful API Call");
                         shelters = response.body();
+                        //Log.d("Home Fragment Shleter List", String.valueOf(response.body()));
                         shelterAdapter = new ShelterAdapter(shelters, new ShelterAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {

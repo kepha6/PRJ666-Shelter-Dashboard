@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,12 +19,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.prj666shelterdashboard.R;
+import com.example.prj666shelterdashboard.RetrofitClient;
 import com.example.prj666shelterdashboard.databinding.FragmentShelterDetailBinding;
 import com.example.prj666shelterdashboard.databinding.FragmentSlideshowBinding;
 import com.example.prj666shelterdashboard.ui.Shelter;
 import com.example.prj666shelterdashboard.ui.slideshow.SlideshowViewModel;
 
 import org.w3c.dom.Text;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ShelterDetail extends Fragment {
 
@@ -31,7 +39,7 @@ public class ShelterDetail extends Fragment {
     TextView ID,Name,Address,Postal,City,Group,Org,Program,Sector,Model,Capacity_Type,Actual_Beds,Funding_Bed_Label,Capacity_Unoccupied_Bed,Capacity_Unavailable_Bed_Label2;
     ProgressBar Funding_Beds,Occupied_Beds,Unoccupied_Beds,Unavailable_Bed;
 
-    Button DeleteBtn;
+    Button DeleteBtn,UpdateBtn;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,11 +75,42 @@ public class ShelterDetail extends Fragment {
         DeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Call<ResponseBody> call = RetrofitClient.getInstance().getMyApi().deleteShelter(String.valueOf(ID));
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()){
+                            Log.d("Delete Shelter", "Successful API Call");
+                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
+                            navController.popBackStack();
 
+                        }else{
+                            Log.e("Delete Shelter", "Error: " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("Delete Shelter", "Error: " + t.getMessage());
+                    }
+                });
             }
         });
 
-        ID.setText("ID:"+ String.valueOf(shelter.getShelterId()));
+        UpdateBtn = root.findViewById(R.id.UpdateBtn);
+        UpdateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Shelter selectedShelter = shelter;
+                // Create a bundle to pass data to the ShelterDetail fragment if needed
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("Shelter",selectedShelter);
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
+                navController.navigate(R.id.action_nav_shelterDetail_to_nav_editDetail,bundle);
+            }
+        });
+
+        ID.setText("ID:"+ String.valueOf(shelter.get_id()));
         Name.setText(shelter.getLocationName());
         Address.setText(shelter.getLocationAddress());
         Postal.setText(", " + shelter.getLocationPostalCode());

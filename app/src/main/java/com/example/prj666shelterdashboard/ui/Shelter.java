@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class Shelter implements Parcelable {
-    private int _id;
+    private String id;
     private int locationId;
     private int shelterId;
     private int programId;
@@ -31,7 +31,7 @@ public class Shelter implements Parcelable {
     private String capacityType;
 
     public Shelter(
-            int _id,
+            String id,
             int locationId,
             int shelterId,
             int programId,
@@ -53,7 +53,7 @@ public class Shelter implements Parcelable {
             int unavailableRooms,
             String capacityType
     ) {
-        this._id = _id;
+        this.id = id;
         this.locationId = locationId;
         this.shelterId = shelterId;
         this.programId = programId;
@@ -78,7 +78,7 @@ public class Shelter implements Parcelable {
 
 
     protected Shelter(Parcel in) {
-        _id = in.readInt();
+        id = in.readString();
         locationId = in.readInt();
         shelterId = in.readInt();
         programId = in.readInt();
@@ -114,8 +114,8 @@ public class Shelter implements Parcelable {
     };
 
     // Getters and Setters
-    public int get_id() {
-        return _id;
+    public String get_id() {
+        return id;
     }
 
 
@@ -271,7 +271,7 @@ public class Shelter implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(_id);
+        dest.writeString(id);
         dest.writeInt(locationId);
         dest.writeInt(shelterId);
         dest.writeInt(programId);
