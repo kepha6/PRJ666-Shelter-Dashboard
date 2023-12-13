@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.prj666shelterdashboard.MainActivity;
 import com.example.prj666shelterdashboard.R;
 import com.example.prj666shelterdashboard.RetrofitClient;
 import com.example.prj666shelterdashboard.databinding.FragmentShelterDetailBinding;
@@ -38,8 +39,8 @@ public class ShelterDetail extends Fragment {
     private FragmentShelterDetailBinding binding;
     TextView ID,Name,Address,Postal,City,Group,Org,Program,Sector,Model,Capacity_Type,Actual_Beds,Funding_Bed_Label,Capacity_Unoccupied_Bed,Capacity_Unavailable_Bed_Label2;
     ProgressBar Funding_Beds,Occupied_Beds,Unoccupied_Beds,Unavailable_Bed;
-
     Button DeleteBtn,UpdateBtn;
+    String accessLvl;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,16 +67,40 @@ public class ShelterDetail extends Fragment {
         Actual_Beds = root.findViewById(R.id.Capacity_Actual_Bed);
         Funding_Bed_Label = root.findViewById(R.id.Capacity_Funding_Bed_Label);
         Funding_Beds = root.findViewById(R.id.Capacity_Funding_Bed);
-        Unoccupied_Beds = root.findViewById(R.id.Capacity_Occupied_Bed);
+        Unoccupied_Beds = root.findViewById(R.id.Capacity_UnOccupied_BedBar);
         Capacity_Unoccupied_Bed = root.findViewById(R.id.Capacity_Unoccupied_Bed);
         Unavailable_Bed = root.findViewById(R.id.Capacity_Unavailable_Bed);
         Capacity_Unavailable_Bed_Label2 = root.findViewById(R.id.Capacity_Unavailable_Bed_Label2);
+        MainActivity activity = (MainActivity) getActivity();
+        accessLvl = activity.getAccessLevel();
+
 
         DeleteBtn = root.findViewById(R.id.DeleteBtn);
+        DeleteBtn.setVisibility(View.GONE);
+        DeleteBtn.setEnabled(false);
+        UpdateBtn = root.findViewById(R.id.UpdateBtn);
+        UpdateBtn.setVisibility(View.GONE);
+        UpdateBtn.setEnabled(false);
+
+
+        if (accessLvl.equals("manager")){
+            UpdateBtn.setVisibility(View.VISIBLE);
+            UpdateBtn.setEnabled(true);
+
+
+        } else if (accessLvl.equals("admin")) {
+            DeleteBtn.setVisibility(View.VISIBLE);
+            DeleteBtn.setEnabled(true);
+            UpdateBtn.setVisibility(View.VISIBLE);
+            UpdateBtn.setEnabled(true);
+        }
+        //Controls
         DeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = RetrofitClient.getInstance().getMyApi().deleteShelter(String.valueOf(ID));
+                Call<ResponseBody> call = RetrofitClient.getInstance().getMyApi().deleteShelter(ID.getText().toString().split(":")[1]);
+                Log.d("Delete Shelter", call.request().url().toString());
+
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -91,13 +116,12 @@ public class ShelterDetail extends Fragment {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("Delete Shelter", "Error: " + t.getMessage());
+                        Log.e("Delete Shelter", "Error: " + call);
                     }
                 });
             }
         });
 
-        UpdateBtn = root.findViewById(R.id.UpdateBtn);
         UpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +133,8 @@ public class ShelterDetail extends Fragment {
                 navController.navigate(R.id.action_nav_shelterDetail_to_nav_editDetail,bundle);
             }
         });
+
+
 
         ID.setText("ID:"+ String.valueOf(shelter.get_id()));
         Name.setText(shelter.getLocationName());
@@ -130,12 +156,8 @@ public class ShelterDetail extends Fragment {
         Funding_Beds.setMax(shelter.getCapacityFundingRoom());
         Funding_Beds.setProgress(shelter.getCapacityActualRoom());
 
-
         Unoccupied_Beds.setMax(shelter.getCapacityFundingRoom());
         Unoccupied_Beds.setProgress(shelter.getUnoccupiedRooms());
-
-
-        //Unoccupied_Beds.setProgress(shelter.getUnoccupiedRooms());
 
         Unavailable_Bed.setMax(shelter.getCapacityFundingRoom());
         Unavailable_Bed.setProgress(shelter.getUnavailableRooms());
@@ -146,6 +168,20 @@ public class ShelterDetail extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Funding_Beds.setMax(shelter.getCapacityFundingRoom());
+        Funding_Beds.setProgress(shelter.getCapacityActualRoom());
+
+        Unoccupied_Beds.setMax(shelter.getCapacityFundingRoom());
+        Unoccupied_Beds.setProgress(shelter.getUnoccupiedRooms());
+
+        Unavailable_Bed.setMax(shelter.getCapacityFundingRoom());
+        Unavailable_Bed.setProgress(shelter.getUnavailableRooms());
     }
 
 }

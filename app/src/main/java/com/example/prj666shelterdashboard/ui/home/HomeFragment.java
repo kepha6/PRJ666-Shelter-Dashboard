@@ -6,10 +6,11 @@
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
-    import android.widget.ImageView;
+    import android.widget.LinearLayout;
     import android.widget.TextView;
 
     import androidx.annotation.NonNull;
+    import androidx.core.content.ContextCompat;
     import androidx.fragment.app.Fragment;
     import androidx.lifecycle.ViewModelProvider;
     import androidx.navigation.NavController;
@@ -31,7 +32,6 @@
     import com.github.mikephil.charting.data.BarData;
     import com.github.mikephil.charting.data.BarDataSet;
     import com.github.mikephil.charting.data.BarEntry;
-    import com.google.gson.JsonObject;
 
     import org.json.JSONArray;
     import org.json.JSONException;
@@ -39,6 +39,7 @@
 
     import java.io.IOException;
     import java.util.ArrayList;
+    import java.util.Arrays;
     import java.util.Collections;
     import java.util.Comparator;
     import java.util.List;
@@ -72,8 +73,9 @@
         TextView TotalAvailableBeds;
         TextView TotalOccupiedBeds;
         TextView TotalUnallocatedBeds;
-        Legend legend;
 
+        TextView legend1,legend2,legend3,legend4;
+        LinearLayout legend;
         public View onCreateView(@NonNull LayoutInflater inflater,
                                  ViewGroup container, Bundle savedInstanceState) {
             HomeViewModel homeViewModel =
@@ -91,9 +93,13 @@
 
             // initializing variable for bar chart.
             barChart = root.findViewById(R.id.idBarChart);
+            legend1 = root.findViewById(R.id.legendEntry1);
+            legend2 = root.findViewById(R.id.legendEntry2);
+            legend3 = root.findViewById(R.id.legendEntry3);
+            legend4 = root.findViewById(R.id.legendEntry4);
 
             // calling method to get bar entries.
-            getBarEntries();
+            //getBarEntries();
             barChart.setNoDataText("Swipe Down to Refresh");
 
             // Check if barEntriesArrayList is not null before creating BarDataSet
@@ -123,6 +129,7 @@
             }
 
             barChart.getDescription().setEnabled(false);
+            barChart.getLegend().setEnabled(false);
             XAxis xAxis = barChart.getXAxis();
             xAxis.setDrawGridLines(false);
             xAxis.setDrawLabels(false);
@@ -133,12 +140,15 @@
             TotalOccupiedBeds = root.findViewById(R.id.TotalOccupiedDisplay);
             TotalUnallocatedBeds = root.findViewById(R.id.TotalUnallocatedDisplay);
 
-            legend = barChart.getLegend();
+            //legend = barChart.getLegend();
 
             // Initialize SwipeRefreshLayout
             swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
             swipeRefreshLayout.setOnRefreshListener(() -> refreshFragment());
 
+            if (cityAnalyticsList != null){
+                updateLegendEntries();
+            }
 
 
             return root;
@@ -286,12 +296,7 @@
             });
 
         }
-        private int getColorForIndex(int index) {
-            // You can implement a logic to assign different colors based on the index
-            // For example, you can use an array of predefined colors
-            int[] colors = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN};
-            return colors[index % colors.length];
-        }
+
         private void createBarEntries() {
             // creating a new array list
             barEntriesArrayList = new ArrayList<>();
@@ -305,45 +310,31 @@
             }
         }
         private void updateLegendEntries() {
+            View root = binding.getRoot();
 
-            List<LegendEntry> legendEntries = new ArrayList<>();
+            legend1 = root.findViewById(R.id.legendEntry1);
+            legend2 = root.findViewById(R.id.legendEntry2);
+            legend3 = root.findViewById(R.id.legendEntry3);
+            legend4 = root.findViewById(R.id.legendEntry4);
+            legend = root.findViewById(R.id.legend);
+            legend.setBackgroundColor(getResources().getColor(R.color.grey));
 
-            for (int i = 0; i < cityAnalyticsList.size(); i++) {
-                String location = cityAnalyticsList.get(i).getLocation();
-                // You can customize the color based on your preference or use a color array
-                int color = getColorForIndex(i);
-                legendEntries.add(new LegendEntry(location, Legend.LegendForm.DEFAULT, 10f, 2f, null, color));
-                Log.d("Home City Analytic Fragment", "Size: " +legendEntries.size());
+            //LegendEntry[] LegendEntryList = new LegendEntry[cityAnalyticsList.size()];
+            int[] colors = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN,Color.BLACK};
+            legend1.setText(cityAnalyticsList.get(0).getLocation());
+            legend1.setTextColor(colors[0]);
+            //legend1.setTextColor();
+            legend2.setText(cityAnalyticsList.get(1).getLocation());
+            legend2.setTextColor(colors[1]);
 
-            }
+            legend3.setText(cityAnalyticsList.get(2).getLocation());
+            legend3.setTextColor(colors[2]);
 
-            // Update legend entries based on City Analytics data
-            legend.setCustom(new LegendEntry[]{legendEntries.get(0),legendEntries.get(1),legendEntries.get(2),legendEntries.get(3)});
-            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-            legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-            legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-            legend.setDrawInside(false);
-            legend.setXOffset(5f);
+            legend4.setText(cityAnalyticsList.get(3).getLocation());
+            legend4.setTextColor(colors[3]);
 
-            legend = barChart.getLegend();
         }
 
-        private LegendEntry[] getLegendEntriesArray() {
-            List<LegendEntry> legendEntries = new ArrayList<>();
-
-            for (int i = 0; i < cityAnalyticsList.size(); i++) {
-                String location = cityAnalyticsList.get(i).getLocation();
-                // You can customize the color based on your preference or use a color array
-                int color = getColorForIndex(i);
-                legendEntries.add(new LegendEntry(location, Legend.LegendForm.DEFAULT, 10f, 2f, null, color));
-                Log.d("Home City Analytic Fragment", "Size: " +legendEntries.size());
-
-            }
-
-            Log.d("Home City Analytic Fragment", "Legend: " + legendEntries.get(0));
-
-            return legendEntries.toArray(new LegendEntry[]{legendEntries.get(0),legendEntries.get(1),legendEntries.get(2),legendEntries.get(3)});
-        }
 
         // Method to refresh the current fragment
         public void refreshFragment() {
@@ -352,9 +343,21 @@
 
             // Attach the fragment again
             getParentFragmentManager().beginTransaction().attach(this).commit();
+            updateLegendEntries();
+
             // Stop the refreshing animation
             swipeRefreshLayout.setRefreshing(false);
-
-            updateLegendEntries();
+            //legend = barChart.getLegend();
+            //legend.setCustom(updateLegendEntries());
+            //barChart.notifyDataSetChanged();
+            //Log.d("refreshFragment: ", Arrays.toString(legend.getEntries()));
         }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getBarEntries();
+            //updateLegendEntries();
+        }
+
     }

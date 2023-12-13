@@ -33,6 +33,8 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -292,7 +294,11 @@ public class EditShelterDetails extends Fragment {
     }
 
     private void saveShelter(JSONObject shelterJSON){
-        Call<ResponseBody> call = RetrofitClient.getInstance().getMyApi().updateShelter(shelterJSON.toString());
+        MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, shelterJSON.toString());
+
+        Call<ResponseBody> call = RetrofitClient.getInstance().getMyApi().updateShelter(body);
+        Log.d("Save Shelter", body.toString());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/LoginFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -54,5 +54,16 @@
         android:label="Edit Shelter Details"
         tools:layout="@layout/fragment_edit_shelter_details"
         />
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.example.prj666shelterdashboard.ui.loginScreen.login"
+        android:label="Login Screen"
+        tools:layout="@layout/fragment_login"
+        >
+        <action
+            android:id="@+id/action_LoginFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 </navigation>

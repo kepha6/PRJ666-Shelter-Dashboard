@@ -46,7 +46,7 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
         private TextView textShelterName;
         private TextView textAddress;
         private TextView textCity;
-        private TextView textBedsAvailable;
+        private TextView textBedsAvailable,description;
         private Button buttonMoreInfo;
 
         public ViewHolder(@NonNull View itemView) {
@@ -56,7 +56,7 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
             textCity = itemView.findViewById(R.id.textCity);
             textBedsAvailable = itemView.findViewById(R.id.textBedsAvailable);
             buttonMoreInfo = itemView.findViewById(R.id.buttonMoreInfo);
-
+            description = itemView.findViewById(R.id.textDescription);
             buttonMoreInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,6 +74,7 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
             textShelterName.setText(shelter.getOrganizationName());
             textAddress.setText(shelter.getLocationAddress());
             textCity.setText(shelter.getLocationCity());
+            description.setText(shelter.getProgramArea());
             textBedsAvailable.setText("Beds Available: " + shelter.getCapacityFundingRoom());
         }
     }

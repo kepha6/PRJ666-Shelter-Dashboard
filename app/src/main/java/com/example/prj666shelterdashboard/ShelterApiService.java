@@ -1,12 +1,16 @@
 package com.example.prj666shelterdashboard;
 import com.example.prj666shelterdashboard.ui.Shelter;
+import com.example.prj666shelterdashboard.ui.SignInRequest;
+import com.example.prj666shelterdashboard.ui.UserResponse;
 
 import org.json.JSONObject;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -27,9 +31,12 @@ public interface ShelterApiService {
     Call<ResponseBody> getOccupancyAnalytics();
 
     @PATCH("shelter")
-    Call<ResponseBody> updateShelter(@Body String shelter);
+    Call<ResponseBody> updateShelter(@Body RequestBody shelter);
 
     @DELETE("/shelter/{id}")
     Call<ResponseBody> deleteShelter (@Path("id") String ID);
+
+    @POST("/user/login")
+    Call<UserResponse> signIn(@Body SignInRequest signInRequest);
 }
 
