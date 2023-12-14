@@ -1,6 +1,7 @@
 package com.example.prj666shelterdashboard.ui.shelterDetail;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class ShelterDetail extends Fragment {
 
     private Shelter shelter;
     private FragmentShelterDetailBinding binding;
-    TextView ID,Name,Address,Postal,City,Group,Org,Program,Sector,Model,Capacity_Type,Actual_Beds,Funding_Bed_Label,Capacity_Unoccupied_Bed,Capacity_Unavailable_Bed_Label2;
+    TextView ID,Name,Address,Postal,City,Group,Org,Program,Sector,Model,Capacity_Type,Actual_Beds,Funding_Bed_Label,Capacity_Unoccupied_Bed,Capacity_Unavailable_Bed_Label2,ClickToMaps;
     ProgressBar Funding_Beds,Occupied_Beds,Unoccupied_Beds,Unavailable_Bed;
     Button DeleteBtn,UpdateBtn;
     String accessLvl;
@@ -71,6 +72,18 @@ public class ShelterDetail extends Fragment {
         Capacity_Unoccupied_Bed = root.findViewById(R.id.Capacity_Unoccupied_Bed);
         Unavailable_Bed = root.findViewById(R.id.Capacity_Unavailable_Bed);
         Capacity_Unavailable_Bed_Label2 = root.findViewById(R.id.Capacity_Unavailable_Bed_Label2);
+        ClickToMaps = root.findViewById(R.id.addressQuickLink);
+        ClickToMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onClick: ", "going to google maps ");
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q="+shelter.getLocationAddress()+" + "+shelter.getLocationCity()+" + "+shelter.getLocationPostalCode()));
+                startActivity(intent);
+            }
+        });
+
+
         MainActivity activity = (MainActivity) getActivity();
         accessLvl = activity.getAccessLevel();
 

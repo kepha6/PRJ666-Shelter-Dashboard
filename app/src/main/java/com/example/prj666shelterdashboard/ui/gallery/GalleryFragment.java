@@ -63,7 +63,7 @@ public class GalleryFragment extends Fragment  {
 
     private void getShelters() {
         // Make the asynchronous API call
-        Call<List<Shelter>> call = RetrofitClient.getInstance().getMyApi().getShelters(25);
+        Call<List<Shelter>> call = RetrofitClient.getInstance().getMyApi().getShelters(50);
         call.enqueue(new Callback<List<Shelter>>() {
             @Override
             public void onResponse(Call<List<Shelter>> call, Response<List<Shelter>> response) {
